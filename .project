@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>P&amp;T</name>
-	<comment>Project QuizService created by Buildship.</comment>
+	<name>PandTService</name>
+	<comment>Project PandTService created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
