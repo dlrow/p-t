@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.springfox:springfox-spring-web:2.0.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.0.2/e0e368a930eea784a55f87adcc4266949cc9bedf/springfox-spring-web-2.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.0.2/e7a5a2d36a75c7df5af12b1ab9110ba53dd5d64d/springfox-spring-web-2.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
