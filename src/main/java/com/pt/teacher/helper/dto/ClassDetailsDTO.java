@@ -4,6 +4,7 @@ package com.pt.teacher.helper.dto;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Purpose:-This classDTO holds the details related to particular class in school
@@ -15,6 +16,11 @@ import java.util.List;
 
 @Data
 public class ClassDetailsDTO {
+
+    /**
+     * represent the class id of the class
+     */
+    private UUID classId;
 
     /**
      * represent the Name of class
@@ -35,5 +41,10 @@ public class ClassDetailsDTO {
      * represent the List of Subject taught in the class
      */
     private List<String> subject;
+
+    /**
+     * represent the time table of class
+     */
+    private List<List<String>> timeTable;
 }
 

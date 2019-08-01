@@ -14,4 +14,5 @@ public class GeneralConstants {
 
     public static final String APPLICATION_JSON_CONTENT_TYPE = "application/json";
     public static final String SUCCESS_CODE="200";
+    public static final String SUCCCESS_MSG="Success";
 }

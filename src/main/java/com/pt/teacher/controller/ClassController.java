@@ -71,4 +71,43 @@ public class ClassController {
         return ResponseEntity.ok().body(classDetailsDTO);
 
     }
+
+    /**
+     * This Api will update the class details of saved class
+     * @param classDetailsDTO it accept the classDetailsDto consisting of details to be updated
+     * @return ResponseMessage which consist of success code and success msg
+     */
+
+    @CrossOrigin
+    @PutMapping(path="/updateclass",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
+    public ResponseEntity<ResponseMessage> updateClass(@RequestBody ClassDetailsDTO classDetailsDTO)
+    {
+        log.info("Executing ClassController.updateClass() with param classDetailsDTO:{}"+
+                "  Routing the incoming request to classService to update the class.",classDetailsDTO);
+        ResponseMessage responseMessage=new ResponseMessage();
+        String msg=classService.updateClass(classDetailsDTO);
+        responseMessage.setStatusCode(GeneralConstants.SUCCESS_CODE);
+        responseMessage.setMessage(msg);
+        log.info("Returning the Response Message which consist of Success Msg and Success code  after Successful" +
+                " updation in class details" +
+                "from ClassController.updateClass()");
+        return ResponseEntity.ok().body(responseMessage);
+    }
+
+    @CrossOrigin
+    @DeleteMapping(path="/deleteclass/{classid}")
+    public ResponseEntity<ResponseMessage> deleteClass(@PathVariable("classid") UUID classid)
+    {
+        Logger.info("Executing ClassController.deleteClass() with param classid:{}"+
+                "  Routing the incoming request to classService to delete the class details from our System.",classid);
+        classService.deleteClass(classid);
+        ResponseMessage responseMessage=new ResponseMessage();
+        responseMessage.setMessage(GeneralConstants.SUCCCESS_MSG);
+        responseMessage.setStatusCode(GeneralConstants.SUCCESS_CODE);
+        Logger.info("Returning the Response Message which consist of Success Msg and Success code  after Successful" +
+                " deletion of class details" +
+                "from ClassController.deleteClass()");
+        return ResponseEntity.ok().body(responseMessage);
+
+    }
 }

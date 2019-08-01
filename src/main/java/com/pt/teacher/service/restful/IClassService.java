@@ -31,4 +31,17 @@ public interface IClassService {
      */
     ClassDetailsDTO getClass(UUID classid);
 
+    /**
+     * This method will the update the class details
+     * @param classDetailsDTO represent the class details to be updated
+     * @return Success Msg after updation
+     */
+    String updateClass(ClassDetailsDTO classDetailsDTO);
+
+    /**
+     * This method will delete the class details of given classId
+     * @param classid repesent classid
+     * @return Success Message after deleting the class
+     */
+    String deleteClass(UUID classid);
 }

@@ -1,5 +1,6 @@
 package com.pt.teacher.service.restful.impl;
 
+import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.dto.ClassDetailsDTO;
 import com.pt.teacher.helper.util.Mapper;
 import com.pt.teacher.model.ClassDetails;
@@ -40,7 +41,7 @@ public class ClassService implements IClassService {
     {
         Logger.info("Executing ClassService.addClass() with param classDetailsDTO:{}"+
                 "which save the give class to our System",classDetailsDTO);
-        ClassDetails classDetails=mapper.mapClassDetailsDtoToClassDetails(classDetailsDTO);
+        ClassDetails classDetails=mapper.mapClassDetailsDtoToClassDetails(classDetailsDTO,null);
         ClassDetails returnedClassDetails=classRepository.save(classDetails);
         Logger.info("Returing ClassId of the saved class from ClassService.addClass()");
         return returnedClassDetails.getClassId();
@@ -60,5 +61,36 @@ public class ClassService implements IClassService {
         ClassDetailsDTO classDetailsDTO=mapper.mapClassDetailsToClassDetailsDTO(classDetails);
         Logger.info("Returning classDetailsDTO obj which contains class details of the saved class from ClassService.getClass()");
         return classDetailsDTO;
+    }
+
+    /**
+     * This method will the update the class details
+     * @param classDetailsDTO represent the class details to be updated
+     * @return Success Msg after updation
+     */
+    @Override
+    public String updateClass(ClassDetailsDTO classDetailsDTO)
+    {
+        Logger.info("Executing ClassService.updateClass() with param classDetailsDTO:{}"+
+                "which update the give class to our System",classDetailsDTO);
+        ClassDetails classDetails=mapper.mapClassDetailsDtoToClassDetails(classDetailsDTO,classDetailsDTO.getClassId());
+        ClassDetails returnedClassDetails=classRepository.save(classDetails);
+        Logger.info("Returing Success msg after updation in class details from ClassService.updateClass()");
+        return GeneralConstants.SUCCCESS_MSG;
+    }
+
+
+    /**
+     * This method will delete the class details of given classId
+     * @param classid repesent classid
+     * @return Success Message after deleting the class
+     */
+    public String deleteClass(UUID classid)
+    {
+        Logger.info("Executing ClassService.deleteClass() with param UUID:{}"+ "which will delete class details " +
+                "from our System of given classId",classid);
+        classRepository.deleteById(classid);
+        Logger.info("Returing Success msg after deletion of classDetails from ClassService.deleteClass()");
+        return GeneralConstants.SUCCCESS_MSG;
     }
 }

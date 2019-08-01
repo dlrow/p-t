@@ -52,5 +52,10 @@ public class ClassDetails implements Serializable{
      */
     private List<String> subject;
 
+    /**
+     * represent the time table of class
+     */
+    private List<List<String>> timeTable;
+
 
 }

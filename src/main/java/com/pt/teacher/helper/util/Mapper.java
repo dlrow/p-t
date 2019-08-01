@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 /**
  * Purpose:-This is a general purpose class used for mapping one type of object to another type of object
  *          as per business use cases.
@@ -28,16 +30,23 @@ public class Mapper {
      * @param classDetailsDTO represent the class details DTO
      * @return classDetails Entity
      */
-    public ClassDetails mapClassDetailsDtoToClassDetails(ClassDetailsDTO classDetailsDTO)
+    public ClassDetails mapClassDetailsDtoToClassDetails(ClassDetailsDTO classDetailsDTO, UUID uuid)
     {
         Logger.info("Executing Mapper.mapClassDetailsDtoToClassDetails() with param classDetailsDTO:{}"+
                 "which convert DTO to classDetails Entity",classDetailsDTO);
         ClassDetails classDetails=new ClassDetails();
-        classDetails.setClassId(uuidGenerator.getUuid());
-        classDetails.setClassName(classDetailsDTO.getClassName());
+        if(uuid==null) {
+            classDetails.setClassId(uuidGenerator.getUuid());
+        }
+        else
+        {
+            classDetails.setClassId(uuid);
+        }
         classDetails.setMonitorName(classDetailsDTO.getMonitorName());
+        classDetails.setClassName(classDetailsDTO.getClassName());
         classDetails.setSection(classDetailsDTO.getSection());
         classDetails.setSubject(classDetailsDTO.getSubject());
+        classDetails.setTimeTable(classDetailsDTO.getTimeTable());
         Logger.info("Sending Class Details Entity object to ClassService from Mapper.mapClassDetailsDtoToClassDetails()");
         return classDetails;
     }
@@ -47,10 +56,12 @@ public class Mapper {
         Logger.info("Executing Mapper.mapClassDetailsToClassDetailsDTO() with param classDetails:{}"+
                 "which classDetails Entity to convert classDetailsDTO ",classDetails);
         ClassDetailsDTO classDetailsDTO=new ClassDetailsDTO();
+        classDetailsDTO.setClassId(classDetails.getClassId());
         classDetailsDTO.setClassName(classDetails.getClassName());
         classDetailsDTO.setMonitorName(classDetails.getMonitorName());
         classDetailsDTO.setSection(classDetails.getSection());
         classDetailsDTO.setSubject(classDetails.getSubject());
+        classDetailsDTO.setTimeTable(classDetails.getTimeTable());
         Logger.info("Sending ClassDetailsDTO to classService from Mapper.mapClassDetailsToClassDetailsDTO()");
         return classDetailsDTO;
     }
