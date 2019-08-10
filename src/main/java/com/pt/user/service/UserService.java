@@ -1,10 +1,14 @@
 package com.pt.user.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.util.UuidGenerator;
 import com.pt.user.config.DbChannel;
+import com.pt.user.dto.MapResponse;
 import com.pt.user.dto.UserDTO;
 import com.pt.user.model.User;
 import com.pt.user.repository.UserRepository;
@@ -13,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class UserService {
+public class UserService implements GeneralConstants {
 
 	@Autowired
 	DbChannel dbChannel;
@@ -35,16 +39,23 @@ public class UserService {
 		dbChannel.addUser(u);
 	}
 
-	public String login(String phone, String pin) {
+	public MapResponse login(String phone, String pin) {
+		log.info("UserService : login {}", phone);
 		User u = userRepository.findByPhone(phone);
-		if (u.getPin().equals(pin)) {
+		MapResponse userRes = new MapResponse();
+		if (u == null)
+			userRes.getResponse().put("error", UNREGISTERD_PHONE);
+		else if (u.getPin().equals(pin)) {
 			String accessToken = uuidGenerator.getUuid().toString();
 			u.setAccessToken(accessToken);
 			userRepository.save(u);
-			return accessToken;
+			Map<String, String> response = userRes.getResponse();
+			response.put("accessToken", accessToken);
+			response.put("name", u.getName());
 		} else {
-			return "Invalid pin";
+			userRes.getResponse().put("error", INVALID_PIN);
 		}
+		return userRes;
 	}
 
 	public UserDTO isAuthenticated(String phone, String accesstoken) {

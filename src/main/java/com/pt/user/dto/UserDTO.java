@@ -5,7 +5,7 @@ import com.pt.user.model.UType;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UserDTO  {
 
 	private String name;
 

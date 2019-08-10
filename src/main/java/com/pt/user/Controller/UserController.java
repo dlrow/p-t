@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.dto.ResponseMessage;
+import com.pt.user.dto.MapResponse;
 import com.pt.user.dto.UserDTO;
 import com.pt.user.service.UserService;
 
@@ -22,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Api(value = "Users", description = "Operations pertaining to users")
 @Controller
 @Path("/pt/user")
-public class UserController {
+public class UserController implements GeneralConstants {
 
 	@Autowired
 	UserService userService;
@@ -40,16 +41,15 @@ public class UserController {
 	}
 
 	@CrossOrigin
-	@PostMapping(path = "v1/login", consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
-	public ResponseEntity<ResponseMessage> login(@RequestParam(value = "phone") String phone,
+	@PostMapping(path = "v1/login")
+	public ResponseEntity<MapResponse> login(@RequestParam(value = "phone") String phone,
 			@RequestParam(value = "pin") String pin) {
-		log.info("entering UserController : authUser", phone);
-		String accessToken = userService.login(phone, pin);
-		ResponseMessage responseMessage = new ResponseMessage();
-		responseMessage.setStatusCode(GeneralConstants.SUCCESS_CODE);
-		responseMessage.setMessage(accessToken);
+		log.info("entering UserController : login phone:{}", phone);
+		MapResponse response = userService.login(phone, pin);
 		log.info("exiting UserController : authUser");
-		return ResponseEntity.ok().body(responseMessage);
+		if (response.getResponse().containsKey("error"))
+			return ResponseEntity.badRequest().body(response);
+		return ResponseEntity.ok().body(response);
 	}
 
 	// if user is authentic ? userDto : null

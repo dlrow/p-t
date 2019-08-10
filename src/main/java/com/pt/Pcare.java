@@ -1,13 +1,9 @@
 package com.pt;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-
-import com.pt.user.repository.UserRepository;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
