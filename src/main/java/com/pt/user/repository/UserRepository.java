@@ -1,14 +1,13 @@
-package com.pt.user.dao.nosqlRepo;
-
-import java.util.List;
+package com.pt.user.repository;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.pt.user.mongoDomain.User;
+import com.pt.user.model.User;
 
 @Configuration
 public interface UserRepository extends MongoRepository<User, String> {
 
-	List<User> findByIdLike(String topic);
+	User findByPhone(String phone);
+
 }

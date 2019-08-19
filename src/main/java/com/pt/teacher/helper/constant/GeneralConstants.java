@@ -1,18 +1,18 @@
 package com.pt.teacher.helper.constant;
 
-
 /**
- * Purpose:-
- * This class defines all the globally general required constants.
+ * Purpose:- This class defines all the globally general required constants.
  *
  * @author Priyanshu Raj
  * @version 1.0
- * @since   2019-07-28
+ * @since 2019-07-28
  */
 
-public class GeneralConstants {
+public interface GeneralConstants {
 
-    public static final String APPLICATION_JSON_CONTENT_TYPE = "application/json";
-    public static final String SUCCESS_CODE="200";
-    public static final String SUCCCESS_MSG="Success";
+	String APPLICATION_JSON_CONTENT_TYPE = "application/json";
+	String SUCCESS_CODE = "200";
+	String SUCCCESS_MSG = "Success";
+	String UNREGISTERD_PHONE = "Phone number not registered";
+	String INVALID_PIN = "Invalid pin";
 }

@@ -20,6 +20,7 @@ public class ResponseMessage {
      * represent the Message of response that aggregator send's
      */
     private String message;
+    
 
     public String getStatusCode() {
         return statusCode;

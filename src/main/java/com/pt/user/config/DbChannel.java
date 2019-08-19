@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pt.user.dao.nosqlRepo.UserRepository;
-import com.pt.user.mongoDomain.User;
+import com.pt.user.model.User;
+import com.pt.user.repository.UserRepository;
 
 @Repository
 public class DbChannel {
