@@ -1,30 +1,21 @@
-package com.pt.teacher.model;
+package com.pt.teacher.helper.dto;
 
 
-import java.io.Serializable;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 
 /**
- * Purpose:-This class holds the details related to particular student
+ * Purpose:-This StudentDetailsDTO holds the details related to particular student which belong to some school
  *
  * @author Priyanshu Raj
  * @version 1.0
  * @since   2019-08-01
  */
-
 @Data
-@Document(collection = "studentdetails")
-public class StudentDetails implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class StudentDetailsDTO {
 
     /**
      * represent the student id
      */
-    @Id
     private String studentId;
 
     /**
@@ -56,6 +47,7 @@ public class StudentDetails implements Serializable {
      * represent the address of studemt
      */
     private String address;
+
 
     /**
      * represent the state in which student study

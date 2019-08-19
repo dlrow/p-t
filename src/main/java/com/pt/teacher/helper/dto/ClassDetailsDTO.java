@@ -20,7 +20,12 @@ public class ClassDetailsDTO {
     /**
      * represent the class id of the class
      */
-    private UUID classId;
+    private String classId;
+
+    /**
+     * represent the schoolId to which this class belongs
+     */
+    private String schoolId;
 
     /**
      * represent the Name of class

@@ -22,14 +22,14 @@ public interface IClassService {
      * @param classDetailsDTO contains class detail
      * @return classId of the saved class
      */
-    UUID addClass(ClassDetailsDTO classDetailsDTO);
+    String addClass(ClassDetailsDTO classDetailsDTO);
 
     /**
      * This method will fetch the class details from our System
      * @param classid represent classid
      * @return classDetailsDto which contains class details
      */
-    ClassDetailsDTO getClass(UUID classid);
+    ClassDetailsDTO getClass(String classid);
 
     /**
      * This method will the update the class details
@@ -43,5 +43,5 @@ public interface IClassService {
      * @param classid repesent classid
      * @return Success Message after deleting the class
      */
-    String deleteClass(UUID classid);
+    String deleteClass(String classid);
 }

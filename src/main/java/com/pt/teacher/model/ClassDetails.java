@@ -30,7 +30,12 @@ public class ClassDetails implements Serializable{
      * represent the classId of the class
      */
     @Id
-    private UUID classId;
+    private String classId;
+
+    /**
+     * represent the schoolId to which this class belongs
+     */
+    private String schoolId;
 
     /**
      * represent the Name of class

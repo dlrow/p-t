@@ -5,7 +5,9 @@ import com.pt.teacher.helper.dto.ClassDetailsDTO;
 import com.pt.teacher.helper.util.Mapper;
 import com.pt.teacher.model.ClassDetails;
 import com.pt.teacher.repository.IClassRepository;
+import com.pt.teacher.repository.IStudentRepository;
 import com.pt.teacher.service.restful.IClassService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,16 @@ import java.util.UUID;
  * @version 1.0
  * @since   2019-07-28
  */
+@Slf4j
 @Service
 public class ClassService implements IClassService {
 
     private static final Logger Logger= LoggerFactory.getLogger(ClassService.class);
     @Autowired
     private IClassRepository classRepository;
+
+    @Autowired
+    private IStudentRepository studentRepository;
 
     @Autowired
     private Mapper mapper;
@@ -37,7 +43,7 @@ public class ClassService implements IClassService {
      * @return classId of the saved class
      */
     @Override
-    public UUID addClass(ClassDetailsDTO classDetailsDTO)
+    public String addClass(ClassDetailsDTO classDetailsDTO)
     {
         Logger.info("Executing ClassService.addClass() with param classDetailsDTO:{}"+
                 "which save the give class to our System",classDetailsDTO);
@@ -54,7 +60,7 @@ public class ClassService implements IClassService {
      * @return classDetailsDto which contains class details
      */
     @Override
-    public ClassDetailsDTO getClass(UUID classid)
+    public ClassDetailsDTO getClass(String classid)
     {
         Logger.info("Executing ClassService.getClass() with param UUID:{}"+ "which will fetch class details from our System",classid);
         ClassDetails classDetails=classRepository.findByClassId(classid);
@@ -85,11 +91,13 @@ public class ClassService implements IClassService {
      * @param classid repesent classid
      * @return Success Message after deleting the class
      */
-    public String deleteClass(UUID classid)
+    public String deleteClass(String classid)
     {
         Logger.info("Executing ClassService.deleteClass() with param UUID:{}"+ "which will delete class details " +
                 "from our System of given classId",classid);
-        classRepository.deleteById(classid);
+        classRepository.deleteByClassId(classid);
+        log.info("Deleting all the students that belong to the class which we are going to delete");
+        studentRepository.deleteByClassId(classid);
         Logger.info("Returing Success msg after deletion of classDetails from ClassService.deleteClass()");
         return GeneralConstants.SUCCCESS_MSG;
     }

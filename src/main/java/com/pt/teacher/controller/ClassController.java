@@ -25,7 +25,7 @@ import java.util.UUID;
  *
  **/
 @Slf4j
-@Api(value = "Class", description = "Operations")
+@Api(value = "Class", description = "Class details related apis")
 @RestController
 @RequestMapping("/pt/teacher/class")
 public class ClassController {
@@ -46,10 +46,10 @@ public class ClassController {
     {
        Logger.info("Executing ClassController.addClass() with param classDetailsDTO:{}"+
                "  Routing the incoming request to classService to add the class.",classDetailsDTO);
-       UUID uuid=classService.addClass(classDetailsDTO);
+       String classId=classService.addClass(classDetailsDTO);
        ResponseMessage responseMessage=new ResponseMessage();
        responseMessage.setStatusCode(GeneralConstants.SUCCESS_CODE);
-       responseMessage.setMessage(uuid.toString());
+       responseMessage.setMessage(classId);
        Logger.info("Returning the Response Message which consist of Uuid for Saved class and Success code from ClassController.addClass()");
        return ResponseEntity.ok().body(responseMessage);
     }
@@ -61,7 +61,7 @@ public class ClassController {
      */
     @CrossOrigin
     @GetMapping(path="/getclass/{classid}")
-    public ResponseEntity<ClassDetailsDTO> getClass(@PathVariable("classid") UUID classid)
+    public ResponseEntity<ClassDetailsDTO> getClass(@PathVariable("classid") String classid)
     {
         Logger.info("Executing ClassController.addClass() with param classid:{}"+
                 "  Routing the incoming request to classService to get the class details.",classid);
@@ -96,7 +96,7 @@ public class ClassController {
 
     @CrossOrigin
     @DeleteMapping(path="/deleteclass/{classid}")
-    public ResponseEntity<ResponseMessage> deleteClass(@PathVariable("classid") UUID classid)
+    public ResponseEntity<ResponseMessage> deleteClass(@PathVariable("classid") String classid)
     {
         Logger.info("Executing ClassController.deleteClass() with param classid:{}"+
                 "  Routing the incoming request to classService to delete the class details from our System.",classid);
