@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Attendence {
@@ -15,5 +17,5 @@ public class Attendence {
     @Id
     private String studentId;
 
-    private Date date;
+    private List<LocalDate>  dates;
 }

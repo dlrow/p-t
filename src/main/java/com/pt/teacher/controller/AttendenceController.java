@@ -2,14 +2,17 @@ package com.pt.teacher.controller;
 
 
 import com.pt.teacher.helper.constant.GeneralConstants;
+import com.pt.teacher.helper.dto.AttendenceDTO;
 import com.pt.teacher.helper.dto.ResponseMessage;
+import com.pt.teacher.helper.dto.StudentDetailsDTO;
+import com.pt.teacher.service.restful.IAttendenceService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Purpose:-
@@ -26,7 +29,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pt/teacher/student")
 public class AttendenceController {
 
-    @Override
-    @PostMapping(path="/markattendence",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
-    public ResponseEntity<ResponseMessage> markAttendence(@RequestParam )
+    @Autowired
+    private IAttendenceService attendenceService;
+
+    @CrossOrigin
+    @PostMapping(path="/markattendence/{classid}",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
+    public ResponseEntity<ResponseMessage> markAttendence(@PathVariable("classid") String classid,@RequestBody AttendenceDTO attendenceDTO)
+    {
+        log.info("Executing AttendenceController.markAttendence() with param attendenceDTO:{}"+
+                " Routing the incoming request to attendenceService to mark the attendence of Student.",attendenceDTO);
+        String msgToSend=attendenceService.markAttendence(attendenceDTO,classid);
+        ResponseMessage responseMessage=new ResponseMessage();
+        responseMessage.setMessage(msgToSend);
+        responseMessage.setStatusCode(GeneralConstants.SUCCESS_CODE);
+        log.info("Returning the Response Message which consist of Success Msg when attendence of student have been marked from AttendenceController.markAttendence()");
+        return ResponseEntity.ok().body(responseMessage);
+    }
+
+    @CrossOrigin
+    @GetMapping(path="/unmarked/{classid}")
+    public ResponseEntity<List<StudentDetailsDTO>> getUnMarkedStudent(@PathVariable("classid") String classid)
+    {
+        log.info("Executing AttendenceController.getUnMarkedStudent() with param classid:{}"+
+                " Routing the incoming request to attendenceService to get the list of unmarked(absent) Student.",classid);
+        List<StudentDetailsDTO> unmarkedStudent=attendenceService.getUnMarkedStudent(classid);
+        log.info("Returning the List of unmarked Student from AttendenceController.getUnMarkedStudent()");
+        return ResponseEntity.ok().body(unmarkedStudent);
+    }
+
+    @CrossOrigin
+    @GetMapping(path="/marked/{classid}")
+    public ResponseEntity<List<StudentDetailsDTO>> getMarkedStudent(@PathVariable("classid") String classid)
+    {
+        log.info("Executing AttendenceController.getMarkedStudent() with param classid:{}"+
+                " Routing the incoming request to attendenceService to get the list of marked(present) Student.",classid);
+        List<StudentDetailsDTO> markedStudent=attendenceService.getMarkedStudent(classid);
+        log.info("Returning the List of marked(present) Student from AttendenceController.getMarkedStudent()");
+        return ResponseEntity.ok().body(markedStudent);
+    }
 }

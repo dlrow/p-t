@@ -79,7 +79,7 @@ public class SudentService implements IStudentService {
     {
         log.info("Executing SudentService.getAllStudents() with param studentId:{}"+ "which will delete student details " +
                 "from our System of given studentId",classId);
-        List<StudentDetails> returnedlistOfSavedStudent=studentRepository.deleteByClassId(classId);
+        List<StudentDetails> returnedlistOfSavedStudent=studentRepository.findByClassId(classId);
         List<StudentDetailsDTO> listOfStudentToSend=new ArrayList<>();
         for(StudentDetails student:returnedlistOfSavedStudent)
         {

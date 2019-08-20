@@ -14,7 +14,7 @@ import java.util.UUID;
  * @version 1.0
  * @since   2019-08-01
  */
-public interface IStudentRepository extends MongoRepository<StudentDetails,String> {
+public interface    IStudentRepository extends MongoRepository<StudentDetails,String> {
 
     StudentDetails findByStudentId(String studentId);
 
