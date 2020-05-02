@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.dto.ResponseMessage;
+import com.pt.user.dto.LoginDTO;
 import com.pt.user.dto.MapResponse;
 import com.pt.user.dto.UserDTO;
 import com.pt.user.service.UserService;
@@ -41,11 +42,10 @@ public class UserController implements GeneralConstants {
 	}
 
 	@CrossOrigin
-	@PostMapping(path = "v1/login")
-	public ResponseEntity<MapResponse> login(@RequestParam(value = "phone") String phone,
-			@RequestParam(value = "pin") String pin) {
-		log.info("entering UserController : login phone:{}", phone);
-		MapResponse response = userService.login(phone, pin);
+	@PostMapping(path = "v1/login", consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
+	public ResponseEntity<MapResponse> login(@RequestBody LoginDTO loginDTO) {
+		log.info("entering UserController : login phone:{}", loginDTO.getPhone());
+		MapResponse response = userService.login(loginDTO.getPhone(), loginDTO.getPin());
 		log.info("exiting UserController : authUser");
 		if (response.getResponse().containsKey("error"))
 			return ResponseEntity.badRequest().body(response);
