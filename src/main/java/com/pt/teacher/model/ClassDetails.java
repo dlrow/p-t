@@ -19,6 +19,7 @@ import lombok.Data;
  * @since   2019-07-27
  */
 
+//TODO : add List<student> the class has
 @Data
 @Document(collection = "classdetails")
 public class ClassDetails implements Serializable{

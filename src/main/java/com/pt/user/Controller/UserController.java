@@ -1,14 +1,13 @@
 package com.pt.user.Controller;
 
-import javax.ws.rs.Path;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.dto.ResponseMessage;
@@ -20,10 +19,11 @@ import com.pt.user.service.UserService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 
+//TODO implement forgot password
 @Slf4j
-@Api(value = "Users", description = "Operations pertaining to users")
-@Controller
-@Path("/pt/user")
+@Api(value = "Users")
+@RestController
+@RequestMapping("/pt/user")
 public class UserController implements GeneralConstants {
 
 	@Autowired

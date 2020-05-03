@@ -13,7 +13,7 @@ import java.util.UUID;
  * @version 1.0
  * @since   2019-07-28
  */
-
+//TODO add List<Student>
 @Data
 public class ClassDetailsDTO {
 

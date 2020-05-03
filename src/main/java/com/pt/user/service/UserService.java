@@ -34,7 +34,6 @@ public class UserService implements GeneralConstants {
 		u.setPhone(userDTO.getPhone());
 		// need to encode and save the pin
 		u.setPin(userDTO.getPin());
-		u.setAddress(userDTO.getAddress());
 		u.setUserType(userDTO.getUserType());
 		dbChannel.addUser(u);
 	}
