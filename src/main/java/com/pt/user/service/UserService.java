@@ -1,16 +1,14 @@
 package com.pt.user.service;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.util.UuidGenerator;
 import com.pt.user.config.DbChannel;
-import com.pt.user.dto.MapResponse;
+import com.pt.user.dto.LoginResponseDTO;
 import com.pt.user.dto.UserDTO;
-import com.pt.user.model.User;
+import com.pt.user.model.DbUser;
 import com.pt.user.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,36 +27,45 @@ public class UserService implements GeneralConstants {
 	UserRepository userRepository;
 
 	public void addUser(UserDTO userDTO) {
-		User u = new User();
+		DbUser u = new DbUser();
 		u.setName(userDTO.getName());
 		u.setPhone(userDTO.getPhone());
-		// need to encode and save the pin
+		// TODO need to encode and save the pin
 		u.setPin(userDTO.getPin());
+		u.setAddress(userDTO.getAddress());
+		u.setSchoolId(userDTO.getSchoolId());
 		u.setUserType(userDTO.getUserType());
+		u.setAuthorizedFor(userDTO.getAuthorizedFor());
+		u.setClassIds(userDTO.getClassIds());
+		u.setStudentIds(userDTO.getStudentIds());
 		dbChannel.addUser(u);
 	}
 
-	public MapResponse login(String phone, String pin) {
+	public LoginResponseDTO login(String phone, String pin) {
 		log.info("UserService : login {}", phone);
-		User u = userRepository.findByPhone(phone);
-		MapResponse userRes = new MapResponse();
-		if (u == null)
-			userRes.getResponse().put("error", UNREGISTERD_PHONE);
-		else if (u.getPin().equals(pin)) {
+		DbUser u = userRepository.findByPhone(phone);
+		if (u.getPin().equals(pin)) {
 			String accessToken = uuidGenerator.getUuid().toString();
 			u.setAccessToken(accessToken);
 			userRepository.save(u);
-			Map<String, String> response = userRes.getResponse();
-			response.put("accessToken", accessToken);
-			response.put("name", u.getName());
-		} else {
-			userRes.getResponse().put("error", INVALID_PIN);
+			LoginResponseDTO loginResponse = new LoginResponseDTO();
+			loginResponse.setAccessToken(accessToken);
+			loginResponse.setAddress(u.getAddress());
+			loginResponse.setAuthorizedFor(u.getAuthorizedFor());
+			loginResponse.setClassIds(u.getClassIds());
+			loginResponse.setName(u.getName());
+			loginResponse.setSchoolId(u.getSchoolId());
+			loginResponse.setStudentIds(u.getStudentIds());
+			loginResponse.setUserType(u.getUserType());
+			return loginResponse;
 		}
-		return userRes;
+		throw new RuntimeException("invalid credentials");
 	}
 
 	public UserDTO isAuthenticated(String phone, String accesstoken) {
-		User u = userRepository.findByPhone(phone);
+		DbUser u = userRepository.findByPhone(phone);
+		if (u == null)
+			throw new RuntimeException("invalid phone");
 		if (u.getAccessToken() != null && u.getAccessToken().equals(accesstoken)) {
 			UserDTO uDto = new UserDTO();
 			uDto.setUserType(u.getUserType());
@@ -66,7 +73,7 @@ public class UserService implements GeneralConstants {
 			uDto.setPhone(u.getPhone());
 			return uDto;
 		}
-		return null;
+		throw new RuntimeException("invalid token");
 	}
 
 }

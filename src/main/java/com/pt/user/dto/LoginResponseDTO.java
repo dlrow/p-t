@@ -9,17 +9,15 @@ import com.pt.user.model.UType;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class LoginResponseDTO {
 
 	private String name;
-
-	private String phone;
-
-	private String pin;
 
 	private Address address;
 
 	private String schoolId;
+
+	private String accessToken;
 
 	private UType userType;
 
@@ -30,4 +28,5 @@ public class UserDTO {
 
 	// if UType==parent
 	private List<String> studentIds;
+
 }

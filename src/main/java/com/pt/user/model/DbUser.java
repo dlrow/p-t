@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Document(collection = "user")
-public class User implements Serializable {
+public class DbUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -20,17 +20,23 @@ public class User implements Serializable {
 	private String name;
 
 	private String phone;
-	
+
 	private String pin;
 
-	private String address;
+	private Address address;
 
-	private UType userType;
+	private String schoolId;
 
 	private String accessToken;
 
-	// contains list of students for user_type=parent, list of class for u_t=teacher
-	// and shoolid for principal
-	private List<String> accessList;
+	private UType userType;
+
+	private List<Tasks> authorizedFor;
+
+	// if UType==teacher
+	private List<String> classIds;
+
+	// if UType==parent
+	private List<String> studentIds;
 
 }
