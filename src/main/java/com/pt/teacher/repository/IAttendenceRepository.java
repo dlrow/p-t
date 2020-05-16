@@ -16,4 +16,5 @@ import java.util.List;
 public interface IAttendenceRepository extends MongoRepository<Attendence,String> {
 
     List<Attendence> findByClassId(String classId);
+    Attendence findByStudentId(String studentId);
 }

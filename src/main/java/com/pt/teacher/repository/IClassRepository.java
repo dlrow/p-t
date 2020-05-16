@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,4 +22,6 @@ public interface IClassRepository extends MongoRepository<ClassDetails, String> 
     ClassDetails findByClassId(String uuid);
 
     List<ClassDetails> deleteByClassId(String classId);
+
+    List<ClassDetails>  findAllByClassId(ArrayList<String> classIds);
 }

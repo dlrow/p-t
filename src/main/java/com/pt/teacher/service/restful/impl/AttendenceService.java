@@ -32,6 +32,7 @@ public class AttendenceService implements IAttendenceService {
     @Autowired
     private Mapper mapper;
 
+    @Override
     public String markAttendence(AttendenceDTO attendenceDTO,String classId)
     {
         LocalDate localDate=todaysDate.getTodaysDate();
@@ -54,6 +55,7 @@ public class AttendenceService implements IAttendenceService {
        return GeneralConstants.SUCCCESS_MSG;
     }
 
+    @Override
     public List<StudentDetailsDTO> getUnMarkedStudent(String classId)
     {
         LocalDate localDate=todaysDate.getTodaysDate();
@@ -79,6 +81,7 @@ public class AttendenceService implements IAttendenceService {
 
     }
 
+   @Override
    public List<StudentDetailsDTO> getMarkedStudent(String classId)
    {
        LocalDate localDate=todaysDate.getTodaysDate();
@@ -101,6 +104,14 @@ public class AttendenceService implements IAttendenceService {
            }
        }
        return listOfMarkedStudent;
+   }
+
+   @Override
+   public Attendence getAttendenceOfAStudent(String studentId)
+   {
+        Attendence attendenceOfSingleStudent=attendenceRepository.findByStudentId(studentId);
+        return attendenceOfSingleStudent;
+
    }
 
 }

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -110,4 +112,19 @@ public class ClassController {
         return ResponseEntity.ok().body(responseMessage);
 
     }
+
+    @CrossOrigin
+    @GetMapping(path="/getselectedclass",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
+    public ResponseEntity<List<ClassDetailsDTO>> getSelectedClass(@RequestBody ArrayList<String> listOfClassIds)
+    {
+        Logger.info("Executing ClassController.getSelectedClass() with param classid:{}"+
+                "  Routing the incoming request to classService to get the class details.",listOfClassIds);
+        List<ClassDetailsDTO> classDetailsDTOList=classService.getSelectedClassDetails(listOfClassIds);
+        Logger.info("Returning the list of ClassDetailsDTO which consist class details of Saved classes from ClassController.getSelectedClass()");
+        return ResponseEntity.ok().body(classDetailsDTOList);
+
+    }
+
+
+
 }

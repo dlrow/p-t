@@ -5,6 +5,7 @@ import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.dto.AttendenceDTO;
 import com.pt.teacher.helper.dto.ResponseMessage;
 import com.pt.teacher.helper.dto.StudentDetailsDTO;
+import com.pt.teacher.model.Attendence;
 import com.pt.teacher.service.restful.IAttendenceService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -26,14 +27,14 @@ import java.util.List;
 @Slf4j
 @Api(value = "Attendence", description = "Attendence related api")
 @RestController
-@RequestMapping("/pt/teacher/student")
+@RequestMapping("/pt/teacher/attendence/student")
 public class AttendenceController {
 
     @Autowired
     private IAttendenceService attendenceService;
 
     @CrossOrigin
-    @PostMapping(path="/markattendence/{classid}",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
+    @PostMapping(path="/mark/{classid}",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
     public ResponseEntity<ResponseMessage> markAttendence(@PathVariable("classid") String classid,@RequestBody AttendenceDTO attendenceDTO)
     {
         log.info("Executing AttendenceController.markAttendence() with param attendenceDTO:{}"+
@@ -57,6 +58,7 @@ public class AttendenceController {
         return ResponseEntity.ok().body(unmarkedStudent);
     }
 
+
     @CrossOrigin
     @GetMapping(path="/marked/{classid}")
     public ResponseEntity<List<StudentDetailsDTO>> getMarkedStudent(@PathVariable("classid") String classid)
@@ -67,4 +69,17 @@ public class AttendenceController {
         log.info("Returning the List of marked(present) Student from AttendenceController.getMarkedStudent()");
         return ResponseEntity.ok().body(markedStudent);
     }
+
+    @CrossOrigin
+    @GetMapping(path="/detailsofsinglestudent/{studentId}")
+    public ResponseEntity<Attendence> getAttendenceOfAStudent(@PathVariable("studentId") String studentId)
+    {
+        log.info("Executing AttendenceController.getAttendenceOfAStudent() with param studentId:{}"+
+                " Routing the incoming request to attendenceService to get details of attendence of single student",studentId);
+        Attendence attendenceDetailsOfSingleStudent =attendenceService.getAttendenceOfAStudent(studentId);
+        log.info("Returning the details of attendence of single student from AttendenceController.getAttendenceOfAStudent()");
+        return ResponseEntity.ok().body(attendenceDetailsOfSingleStudent);
+    }
+
+
 }

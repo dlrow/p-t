@@ -3,6 +3,9 @@ package com.pt.teacher.service.restful;
 
 import com.pt.teacher.helper.dto.ClassDetailsDTO;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -44,4 +47,7 @@ public interface IClassService {
      * @return Success Message after deleting the class
      */
     String deleteClass(String classid);
+
+
+    List<ClassDetailsDTO> getSelectedClassDetails(ArrayList<String> classesIds);
 }

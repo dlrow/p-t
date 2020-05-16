@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -101,4 +103,28 @@ public class ClassService implements IClassService {
         Logger.info("Returing Success msg after deletion of classDetails from ClassService.deleteClass()");
         return GeneralConstants.SUCCCESS_MSG;
     }
+
+
+    public List<ClassDetailsDTO> getSelectedClassDetails(ArrayList<String> classesIds)
+    {
+        Logger.info("Executing ClassService.getSelectedClassDetails() with param studentsIds:{}"+ "which fetch the details of selected  " +
+                "classes from our System of given classIds",classesIds);
+        List<ClassDetails> classDetailsList=new ArrayList<>();
+        for(String classId:classesIds)
+        {
+            ClassDetails classDetails=classRepository.findByClassId(classId);
+            classDetailsList.add(classDetails);
+        }
+        Logger.info("classDetailsList:{}",classDetailsList);
+        List<ClassDetailsDTO> classDetailsDTOList=new ArrayList<>();
+        for(ClassDetails classDetails:classDetailsList)
+        {
+            ClassDetailsDTO classDetailsDTO=mapper.mapClassDetailsToClassDetailsDTO(classDetails);
+            classDetailsDTOList.add(classDetailsDTO);
+        }
+        Logger.info("Returing Success msg after deletion of classDetails from classService.getSelectedClassDetails()");
+        return classDetailsDTOList;
+    }
+
+
 }
