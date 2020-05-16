@@ -3,12 +3,14 @@ package com.pt.teacher.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 
 /**
@@ -31,6 +33,7 @@ public class ClassDetails implements Serializable{
      * represent the classId of the class
      */
     @Id
+    @Field("_id")
     private String classId;
 
     /**
@@ -63,5 +66,14 @@ public class ClassDetails implements Serializable{
      */
     private List<List<String>> timeTable;
 
+    /**
+     * represent the list of studentID belong to this class
+     */
+    private List<String> studentIDs;
+
+    /**
+     * represent the class teacher and teacher that have access of given class
+     */
+    private Map<String,String> teacherIds;
 
 }

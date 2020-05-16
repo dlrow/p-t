@@ -5,6 +5,7 @@ import java.io.Serializable;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 
 /**
@@ -25,6 +26,7 @@ public class StudentDetails implements Serializable {
      * represent the student id
      */
     @Id
+    @Field("_id")
     private String studentId;
 
     /**

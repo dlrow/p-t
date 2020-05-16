@@ -41,7 +41,7 @@ public class ClassController {
      * @return ResponseMessage which consist success code and uuid of saved class
      */
     @CrossOrigin
-    @PostMapping(path="/addclass",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
+    @PostMapping(path="/add",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
     public ResponseEntity<ResponseMessage> addClass(@RequestBody ClassDetailsDTO classDetailsDTO)
     {
        Logger.info("Executing ClassController.addClass() with param classDetailsDTO:{}"+
@@ -60,7 +60,7 @@ public class ClassController {
      * @return classDetailsDto which contains all the class details
      */
     @CrossOrigin
-    @GetMapping(path="/getclass/{classid}")
+    @GetMapping(path="/get/{classid}")
     public ResponseEntity<ClassDetailsDTO> getClass(@PathVariable("classid") String classid)
     {
         Logger.info("Executing ClassController.addClass() with param classid:{}"+
@@ -79,7 +79,7 @@ public class ClassController {
      */
 
     @CrossOrigin
-    @PutMapping(path="/updateclass",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
+    @PutMapping(path="/update",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
     public ResponseEntity<ResponseMessage> updateClass(@RequestBody ClassDetailsDTO classDetailsDTO)
     {
         log.info("Executing ClassController.updateClass() with param classDetailsDTO:{}"+
@@ -95,7 +95,7 @@ public class ClassController {
     }
 
     @CrossOrigin
-    @DeleteMapping(path="/deleteclass/{classid}")
+    @DeleteMapping(path="/delete/{classid}")
     public ResponseEntity<ResponseMessage> deleteClass(@PathVariable("classid") String classid)
     {
         Logger.info("Executing ClassController.deleteClass() with param classid:{}"+

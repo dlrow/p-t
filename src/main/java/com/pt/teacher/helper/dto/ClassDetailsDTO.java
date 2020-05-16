@@ -4,6 +4,7 @@ package com.pt.teacher.helper.dto;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -51,5 +52,15 @@ public class ClassDetailsDTO {
      * represent the time table of class
      */
     private List<List<String>> timeTable;
+
+    /**
+     * represent the list of studentID belong to this class
+     */
+    private List<String> studentIDs;
+
+    /**
+     * represent the class teacher and teacher that have access of given class
+     */
+    private Map<String,String> teacherIds;
 }
 

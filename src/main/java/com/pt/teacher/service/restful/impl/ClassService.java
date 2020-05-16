@@ -47,7 +47,7 @@ public class ClassService implements IClassService {
     {
         Logger.info("Executing ClassService.addClass() with param classDetailsDTO:{}"+
                 "which save the give class to our System",classDetailsDTO);
-        ClassDetails classDetails=mapper.mapClassDetailsDtoToClassDetails(classDetailsDTO,null);
+        ClassDetails classDetails=mapper.mapClassDetailsDtoToClassDetails(classDetailsDTO);
         ClassDetails returnedClassDetails=classRepository.save(classDetails);
         Logger.info("Returing ClassId of the saved class from ClassService.addClass()");
         return returnedClassDetails.getClassId();
@@ -79,7 +79,7 @@ public class ClassService implements IClassService {
     {
         Logger.info("Executing ClassService.updateClass() with param classDetailsDTO:{}"+
                 "which update the give class to our System",classDetailsDTO);
-        ClassDetails classDetails=mapper.mapClassDetailsDtoToClassDetails(classDetailsDTO,classDetailsDTO.getClassId());
+        ClassDetails classDetails=mapper.mapClassDetailsDtoToClassDetails(classDetailsDTO);
         ClassDetails returnedClassDetails=classRepository.save(classDetails);
         Logger.info("Returing Success msg after updation in class details from ClassService.updateClass()");
         return GeneralConstants.SUCCCESS_MSG;

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pt.teacher.controller.TeacherController;
 import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.dto.ResponseMessage;
 

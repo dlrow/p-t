@@ -26,24 +26,19 @@ public class Mapper {
 
     private static final Logger Logger = LoggerFactory.getLogger(Mapper.class);
 
-    @Autowired
-    private UuidGenerator uuidGenerator;
     /**
      * This function will convert given param to ClassDetails
      * @param classDetailsDTO represent the class details DTO
      * @return classDetails Entity
      */
-    public ClassDetails mapClassDetailsDtoToClassDetails(ClassDetailsDTO classDetailsDTO, String classId)
+    public ClassDetails mapClassDetailsDtoToClassDetails(ClassDetailsDTO classDetailsDTO)
     {
         Logger.info("Executing Mapper.mapClassDetailsDtoToClassDetails() with param classDetailsDTO:{}"+
                 "which convert DTO to classDetails Entity",classDetailsDTO);
         ClassDetails classDetails=new ClassDetails();
-        if(classId==null) {
-            classDetails.setClassId("123");
-        }
-        else
+        if(classDetailsDTO.getClassId()!=null)
         {
-            classDetails.setClassId(classId);
+            classDetails.setClassId(classDetailsDTO.getClassId());
         }
         classDetails.setSchoolId(classDetailsDTO.getSchoolId());
         classDetails.setMonitorName(classDetailsDTO.getMonitorName());
@@ -51,6 +46,8 @@ public class Mapper {
         classDetails.setSection(classDetailsDTO.getSection());
         classDetails.setSubject(classDetailsDTO.getSubject());
         classDetails.setTimeTable(classDetailsDTO.getTimeTable());
+        classDetails.setStudentIDs(classDetailsDTO.getStudentIDs());
+        classDetails.setTeacherIds(classDetailsDTO.getTeacherIds());
         Logger.info("Sending Class Details Entity object to ClassService from Mapper.mapClassDetailsDtoToClassDetails()");
         return classDetails;
     }
@@ -69,9 +66,11 @@ public class Mapper {
         classDetailsDTO.setClassId(classDetails.getClassId());
         classDetailsDTO.setClassName(classDetails.getClassName());
         classDetailsDTO.setMonitorName(classDetails.getMonitorName());
+        classDetailsDTO.setStudentIDs(classDetails.getStudentIDs());
         classDetailsDTO.setSection(classDetails.getSection());
         classDetailsDTO.setSubject(classDetails.getSubject());
         classDetailsDTO.setTimeTable(classDetails.getTimeTable());
+        classDetailsDTO.setTeacherIds(classDetails.getTeacherIds());
         Logger.info("Sending ClassDetailsDTO to classService from Mapper.mapClassDetailsToClassDetailsDTO()");
         return classDetailsDTO;
     }
@@ -112,7 +111,9 @@ public class Mapper {
                 "which converts StudentDetails to sudentDetails Entity  ",studentDetailsDTO);
         StudentDetails studentDetails=new StudentDetails();
         studentDetails.setClassId(studentDetailsDTO.getClassId());
-        studentDetails.setStudentId(studentDetailsDTO.getStudentId());
+        if(studentDetailsDTO.getStudentId()!=null) {
+            studentDetails.setStudentId(studentDetailsDTO.getStudentId());
+        }
         studentDetails.setFirstName(studentDetailsDTO.getFirstName());
         studentDetails.setCity(studentDetailsDTO.getCity());
         studentDetails.setLastName(studentDetailsDTO.getLastName());

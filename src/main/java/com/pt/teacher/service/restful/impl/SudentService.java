@@ -3,7 +3,9 @@ package com.pt.teacher.service.restful.impl;
 import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.dto.StudentDetailsDTO;
 import com.pt.teacher.helper.util.Mapper;
+import com.pt.teacher.model.ClassDetails;
 import com.pt.teacher.model.StudentDetails;
+import com.pt.teacher.repository.IClassRepository;
 import com.pt.teacher.repository.IStudentRepository;
 import com.pt.teacher.service.restful.IStudentService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,9 @@ public class SudentService implements IStudentService {
 
     @Autowired
     private Mapper mapper;
+
+    @Autowired
+    private IClassRepository classRepository;
     /**
      * This service will have logic for saving student to our System
      * @param studentDetailsDTO contains Student details
@@ -41,6 +46,16 @@ public class SudentService implements IStudentService {
                 "which save student  to our System",studentDetailsDTO);
         StudentDetails studentDetails=mapper.mapStudentDetailsDTOToStudentDetails(studentDetailsDTO);
         StudentDetails returnedStudentDetails=studentRepository.save(studentDetails);
+        log.debug("Saving saved student into its class");
+        ClassDetails classDetails=classRepository.findByClassId(studentDetailsDTO.getClassId());
+        List<String> studentOFClass=classDetails.getStudentIDs();
+        if(studentOFClass==null) {
+            studentOFClass=new ArrayList<String>();
+        }
+        studentOFClass.add(returnedStudentDetails.getStudentId());
+        classDetails.setStudentIDs(studentOFClass);
+        log.debug("Again saving the classDetails after student have been added");
+        classRepository.save(classDetails);
         log.info("Returing studentId of the saved student from SudentService.addStudent()");
         return returnedStudentDetails.getStudentId();
     }
@@ -70,6 +85,13 @@ public class SudentService implements IStudentService {
         log.info("Executing SudentService.deleteStudent() with param studentId:{}"+ "which will delete student details " +
                 "from our System of given studentId",studentId);
         studentRepository.deleteByStudentId(studentId);
+        log.debug("deleting student id from the class");
+        ClassDetails classDetails=classRepository.findByClassId(studentId);
+        List<String> studentOFClass=classDetails.getStudentIDs();
+        studentOFClass.remove(studentId);
+        classDetails.setStudentIDs(studentOFClass);
+        log.debug("Again saving the classDetails after student have been deleted");
+        classRepository.save(classDetails);
         log.info("Returing Success msg after deletion of student Details from SudentService.deleteStudent()");
         return GeneralConstants.SUCCCESS_MSG;
     }

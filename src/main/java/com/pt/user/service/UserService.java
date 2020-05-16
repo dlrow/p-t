@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pt.teacher.helper.constant.GeneralConstants;
-import com.pt.teacher.helper.util.UuidGenerator;
 import com.pt.user.config.DbChannel;
 import com.pt.user.dto.LoginResponseDTO;
 import com.pt.user.dto.UserDTO;
@@ -20,8 +19,6 @@ public class UserService implements GeneralConstants {
 	@Autowired
 	DbChannel dbChannel;
 
-	@Autowired
-	private UuidGenerator uuidGenerator;
 
 	@Autowired
 	UserRepository userRepository;

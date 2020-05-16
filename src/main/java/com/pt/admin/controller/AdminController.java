@@ -1,19 +1,21 @@
 package com.pt.admin.controller;
 
+import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.Api;
-import lombok.extern.slf4j.Slf4j;
+/**
+ * @author Priyanshu Raj
+ * @version 1.0
+ * @Purpose
+ * @since 2020-05-16
+ **/
+
 
 @Slf4j
-@Api(value = "Admin")
+@Api(value = "Admin", description = "Admin related apis")
 @RestController
-@RequestMapping("/pt/admin")
+@RequestMapping("/pt/admin/")
 public class AdminController {
-
-	// TODO create api's to add/remove/update/see school entity
-	// also it should add users with type PRINCIPAL/TEACHER/PARENT access to that school
-	
-
 }
