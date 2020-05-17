@@ -1,5 +1,7 @@
 package com.pt.user.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +44,7 @@ public class UserService implements GeneralConstants {
 		log.info("UserService : login {}", phone);
 		DbUser u = userRepository.findByPhone(phone);
 		if (u.getPin().equals(pin)) {
-			String accessToken = uuidGenerator.getUuid().toString();
+			String accessToken = UUID.randomUUID().toString();
 			u.setAccessToken(accessToken);
 			userRepository.save(u);
 			LoginResponseDTO loginResponse = new LoginResponseDTO();
