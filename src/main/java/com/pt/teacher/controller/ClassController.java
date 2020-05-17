@@ -1,21 +1,31 @@
 package com.pt.teacher.controller;
 
 
-import com.pt.teacher.helper.constant.GeneralConstants;
-import com.pt.teacher.helper.dto.ClassDetailsDTO;
-import com.pt.teacher.helper.dto.ResponseMessage;
-import com.pt.teacher.service.restful.IClassService;
-import io.swagger.annotations.Api;
-import lombok.extern.slf4j.Slf4j;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import com.pt.teacher.helper.constant.GeneralConstants;
+import com.pt.teacher.helper.dto.ClassDetailsDTO;
+import com.pt.teacher.helper.dto.ResponseMessage;
+import com.pt.teacher.service.restful.IClassService;
+
+import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Purpose:-
@@ -29,7 +39,7 @@ import java.util.UUID;
 @Slf4j
 @Api(value = "Class", description = "Class details related apis")
 @RestController
-@RequestMapping("/pt/teacher/class")
+@RequestMapping("/pt/class")
 public class ClassController {
 
     private static final Logger Logger= LoggerFactory.getLogger(ClassController.class);
@@ -114,8 +124,8 @@ public class ClassController {
     }
 
     @CrossOrigin
-    @GetMapping(path="/getselectedclass",consumes = GeneralConstants.APPLICATION_JSON_CONTENT_TYPE)
-    public ResponseEntity<List<ClassDetailsDTO>> getSelectedClass(@RequestBody ArrayList<String> listOfClassIds)
+    @GetMapping("/getselectedclass")
+    public ResponseEntity<List<ClassDetailsDTO>> getSelectedClass(@RequestParam ArrayList<String> listOfClassIds)
     {
         Logger.info("Executing ClassController.getSelectedClass() with param classid:{}"+
                 "  Routing the incoming request to classService to get the class details.",listOfClassIds);
