@@ -1,7 +1,8 @@
 package com.pt.admin.service.restful;
 
+import java.util.List;
+
 import com.pt.admin.helper.dto.SchoolDTO;
-import com.pt.teacher.helper.dto.ClassDetailsDTO;
 
 /**
  * @author Priyanshu Raj
@@ -17,6 +18,8 @@ public interface ISchoolService {
 
 
     SchoolDTO getSchool(String schoolId);
+    
+    List<SchoolDTO> getAllSchool();
 
 
     String updateSchool(SchoolDTO schoolDTO);

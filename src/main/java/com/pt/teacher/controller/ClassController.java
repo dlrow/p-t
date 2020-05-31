@@ -124,7 +124,7 @@ public class ClassController {
     }
 
     @CrossOrigin
-    @GetMapping("/getselectedclass")
+    @GetMapping("/listByIds")
     public ResponseEntity<List<ClassDetailsDTO>> getSelectedClass(@RequestParam ArrayList<String> listOfClassIds)
     {
         Logger.info("Executing ClassController.getSelectedClass() with param classid:{}"+

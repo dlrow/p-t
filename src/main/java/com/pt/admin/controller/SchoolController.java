@@ -1,15 +1,27 @@
 package com.pt.admin.controller;
 
+import java.util.List;
+
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.pt.admin.helper.dto.SchoolDTO;
 import com.pt.admin.service.restful.ISchoolService;
 import com.pt.teacher.helper.constant.GeneralConstants;
 import com.pt.teacher.helper.dto.ResponseMessage;
+
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Priyanshu Raj
@@ -56,6 +68,18 @@ public class SchoolController {
         SchoolDTO schoolDTO=schoolService.getSchool(schoolid);
         Logger.info("Returning the SchoolDTO which consist school details of Saved school SchoolController.getSchool()");
         return ResponseEntity.ok().body(schoolDTO);
+
+    }
+    
+    @CrossOrigin
+    @GetMapping(path="/all/school")
+    public ResponseEntity<List<SchoolDTO>> getAllSchool()
+    {
+        Logger.info("Executing SchoolController.getAllSchool() with param schoolid:{}"+
+                "  Routing the incoming request to schoolService to get the school details.");
+        List<SchoolDTO> schools=schoolService.getAllSchool();
+        Logger.info("Returning the SchoolDTO which consist school details of Saved school SchoolController.getSchool()");
+        return ResponseEntity.ok().body(schools);
 
     }
 

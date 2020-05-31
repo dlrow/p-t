@@ -1,14 +1,18 @@
 package com.pt.admin.service.restful.imp;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.pt.admin.helper.constant.SchoolConstants;
 import com.pt.admin.helper.dto.SchoolDTO;
 import com.pt.admin.helper.util.SchoolMapper;
 import com.pt.admin.model.SchoolDetails;
 import com.pt.admin.repository.ISchoolRepository;
 import com.pt.admin.service.restful.ISchoolService;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * @author Priyanshu Raj
@@ -39,6 +43,20 @@ public class SchoolService implements ISchoolService {
         SchoolDetails returnedSchoolDetails=schoolRepository.save(schoolDetails);
         Logger.info("Returing SchoolId of the saved school from SchoolService.addClass()");
         return returnedSchoolDetails.getSchoolId();
+    }
+    
+    @Override
+    public List<SchoolDTO> getAllSchool(){
+        Logger.info("Executing SchoolService.getAllSchool()");
+        List<SchoolDetails> schoolDetails=schoolRepository.findAll();
+        List<SchoolDTO> schools = new ArrayList<SchoolDTO>();
+        schoolDetails.forEach(sd->{
+        	 SchoolDTO schoolDTO=schoolMapper.mapSchoolDetailsToSchoolDto(sd);
+        	 schools.add(schoolDTO);
+        });
+       
+        Logger.info("Returning schoolDTO obj which contains school details of the saved school from schoolService.getSchool()");
+        return schools;
     }
 
     @Override

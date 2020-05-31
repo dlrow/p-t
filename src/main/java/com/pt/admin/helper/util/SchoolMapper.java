@@ -36,7 +36,7 @@ public class SchoolMapper {
     public SchoolDTO mapSchoolDetailsToSchoolDto(SchoolDetails schoolDetails)
     {
         SchoolDTO schoolDTO=new SchoolDTO();
-        schoolDTO.setSchoolId(schoolDTO.getSchoolId());
+        schoolDTO.setSchoolId(schoolDetails.getSchoolId());
         schoolDTO.setSchoolName(schoolDetails.getSchoolName());
         schoolDTO.setSchoolAddress(schoolDetails.getSchoolAddress());
         schoolDTO.setSchoolCity(schoolDetails.getSchoolCity());

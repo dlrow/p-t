@@ -27,7 +27,7 @@ import java.util.UUID;
 @Slf4j
 @Api(value = "Student", description = "Student details related apis")
 @RestController
-@RequestMapping("/pt/teacher/student")
+@RequestMapping("/pt/student")
 //TODO move everything related to student in parent folder
 public class StudentController {
 

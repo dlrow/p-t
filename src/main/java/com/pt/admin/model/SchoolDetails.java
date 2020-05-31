@@ -28,5 +28,5 @@ public class SchoolDetails {
     private String schoolPincode;
     private Boolean isSchoolDeleted;
     private List<String> schoolAdminIds;
-
+    
 }
